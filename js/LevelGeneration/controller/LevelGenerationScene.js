@@ -19,9 +19,24 @@ class LevelGenerationScene extends Phaser.Scene {
         this.load.json(this.substitutionsPath, this.substitutionsPath);
     }
 
+    deepClone(aObject) {
+        if (typeof aObject != "object") {
+            return aObject;
+        }
+
+        let v;
+        let bObject = Array.isArray(aObject) ? [] : {};
+        for (let prop in aObject) {
+            v = aObject[prop];
+            bObject[prop] = (typeof v === "object") ? this.deepClone(v) : v;
+        }
+
+        return bObject;
+    }
+
     create() {
-        this.initialExpressions = this.cache.json.get(this.initialExpressionsPath);
-        this.substitutions = this.cache.json.get(this.substitutionsPath);
+        this.initialExpressions = this.deepClone(this.cache.json.get(this.initialExpressionsPath));
+        this.substitutions = this.deepClone(this.cache.json.get(this.substitutionsPath));
 
         this.sizer = new LevelGenerationSizer(this);
         this.generator = new LevelFormulaGenerator(this, {
