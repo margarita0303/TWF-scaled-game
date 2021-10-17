@@ -3,7 +3,7 @@
     {
       "index": 1,
       "description": "Training",
-      "numberOfFormulas": 2,
+      "numberOfFormulas": 5,
       "initialExpressions": "/lvl1/init.json",
       "substitutions": "/lvl1/subs.json"
     },
