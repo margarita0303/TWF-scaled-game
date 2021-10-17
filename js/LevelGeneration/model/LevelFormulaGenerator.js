@@ -7,6 +7,7 @@ class LevelFormulaGenerator {
         this.numberOfFormulas = params.numberOfFormulas;
         this.initialExpressions = params.initialExpressions;
         this.substitutions = params.substitutions;
+        this.numberOfLastSubstitution = -1;
 
         for (let substitution of this.substitutions) {
             substitution.diff = substitution.target.length - substitution.origin.length;
@@ -18,7 +19,6 @@ class LevelFormulaGenerator {
         }
 
         this.numberOfGeneratedFormulas = 0;
-        this.shuffler = new Shuffler(this);
     }
 
     nextFormula() {
@@ -62,6 +62,7 @@ class LevelFormulaGenerator {
     initializeFormula() {
         let randomInitialExpression
             = this.initialExpressions[Math.floor(Math.random() * this.initialExpressions.length)];
+        console.log(randomInitialExpression)
         this.formula = {
             'label':        randomInitialExpression,
             'url':          this.urlForRawFormula(randomInitialExpression),
@@ -72,12 +73,18 @@ class LevelFormulaGenerator {
 
     transformFormula() {
         let expression = this.formula.label;
-        let shuffledSubstitutions = this.shuffler.shuffledSubstitutions();
+        let currentNumberOfSubstitution = 0;
 
-        for (let substitution of shuffledSubstitutions) {
+        for (let substitution of this.substitutions) {
+            if (currentNumberOfSubstitution <= this.numberOfLastSubstitution) {
+                currentNumberOfSubstitution += 1;
+                continue;
+            }
+
             let substitutionPlaces = this.getSubstitutionPlaces(expression, substitution);
 
             if (0 < substitutionPlaces.length) {
+                this.numberOfLastSubstitution = currentNumberOfSubstitution;
                 let rawFormula = this.applySubstitution(expression, substitution, substitutionPlaces);
 
                 this.formula = {
