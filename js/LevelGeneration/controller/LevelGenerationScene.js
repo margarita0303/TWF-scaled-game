@@ -56,7 +56,18 @@ class LevelGenerationScene extends Phaser.Scene {
     }
 
     update() {
+        if (this.generator === undefined) {
+            this.scene.stop();
+            this.scene.restart({
+                'numberOfFormulas': this.numberOfFormulas,
+                'initialExpressionPath': this.initialExpressionsPath,
+                'substitutionsPath': this.substitutionsPath
+            });
+            return;
+        }
+
         if (this.generator.levelComplete()) {
+            console.log("The scene LOADING_RESOURCES is started")
             this.scene.start(GC.SCENES.LOADING_RESOURCES, {
                 'formulas': this.formulas,
                 'levelGenerationInfo': this.levelGenerationInfo
