@@ -8,7 +8,7 @@
     },
     {
       "origin": "A->B",
-      "target": "!A&B",
+      "target": "!A|B",
       "scoreForHit": -30,
       "scoreForSkip": 30
     }
