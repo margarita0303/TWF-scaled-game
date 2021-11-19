@@ -48,7 +48,7 @@ class LevelFormulaGenerator {
             .split("|").join("\\vee ")
             .split("&").join("\\wedge ")
             .split("->").join("\\rightarrow ")
-            .split("!").join("\\neq");
+            .split("!").join("\\neg ");
 
         return 'https://chart.apis.google.com/chart?cht=tx' +  // tex parameter
             '&chs=' + height +                                 // specify the height of formula
