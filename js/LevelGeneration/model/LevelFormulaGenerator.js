@@ -47,7 +47,8 @@ class LevelFormulaGenerator {
         let texFormula = rawFormula.split("\\").join("\\backslash ")
             .split("|").join("\\vee ")
             .split("&").join("\\wedge ")
-            .split("->").join("\\rightarrow ");
+            .split("->").join("\\rightarrow ")
+            .split("!").join("\\neq");
 
         return 'https://chart.apis.google.com/chart?cht=tx' +  // tex parameter
             '&chs=' + height +                                 // specify the height of formula
