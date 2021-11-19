@@ -41,6 +41,90 @@ class GameScene extends Phaser.Scene {
         this.finishGameIfNeeded();
     }
 
+    placeMainMenuButton() {
+        let sizer = this.sizer;
+        let scene = this;
+
+        let leftX = sizer.mainMenuButton_LeftX();
+        let topY = sizer.mainMenuButton_TopY();
+
+        let fontSize = sizer.mainMenuButton_fontSize();
+        let fontColor = sizer.mainMenuButton_fontColor();
+
+        let mainMenuButton = scene.add.text(leftX, topY,
+            'main menu', { fontFamily: 'RibeyeMarrow', fontSize: fontSize, color: fontColor });
+        mainMenuButton.setInteractive();
+        mainMenuButton.on('pointerover', () => {
+            mainMenuButton.setFontFamily('Ribeye');
+        });
+        mainMenuButton.on('pointerout', () => {
+            mainMenuButton.setFontFamily('RibeyeMarrow');
+        });
+        mainMenuButton.on('pointerup', () => {
+            Scaler.setResolution(this, 1200, 900);
+            scene.openMainMenu();
+        });
+    }
+
+    placeLevelMenuButton() {
+        let sizer = this.sizer;
+        let scene = this;
+
+        let leftX = sizer.levelMenuButton_LeftX();
+        let topY = sizer.levelMenuButton_TopY();
+
+        let fontSize = sizer.levelMenuButton_fontSize();
+        let fontColor = sizer.levelMenuButton_fontColor();
+
+        let levelMenuButton = scene.add.text(leftX, topY,
+            'level menu', { fontFamily: 'RibeyeMarrow', fontSize: fontSize, color: fontColor });
+        levelMenuButton.setInteractive();
+        levelMenuButton.on('pointerover', () => {
+            levelMenuButton.setFontFamily('Ribeye');
+        });
+        levelMenuButton.on('pointerout', () => {
+            levelMenuButton.setFontFamily('RibeyeMarrow');
+        });
+        levelMenuButton.on('pointerup', () => {
+            Scaler.setResolution(this, 1200, 900);
+            scene.openLevelMenu();
+        });
+    }
+
+    placePauseButton() {
+        let sizer = this.sizer;
+        let scene = this;
+
+        let leftX = sizer.pauseButton_LeftX();
+        let topY = sizer.pauseButton_TopY();
+
+        let fontSize = sizer.pauseButton_fontSize();
+        let fontColor = sizer.pauseButton_fontColor();
+
+        let pauseButton = scene.add.text(leftX, topY,
+            'pause', { fontFamily: 'RibeyeMarrow', fontSize: fontSize, color: fontColor });
+        pauseButton.setInteractive();
+        pauseButton.on('pointerover', () => {
+            pauseButton.setFontFamily('Ribeye');
+        });
+        pauseButton.on('pointerout', () => {
+            mpauseButton.setFontFamily('RibeyeMarrow');
+        });
+        pauseButton.on('pointerup', () => {
+            // Scaler.setResolution(this, 1200, 900);
+            // console.log("No pause scene");
+            this.showMenu();
+        });
+    }
+
+    openLevelMenu() {
+        this.scene.start(GC.SCENES.LEVEL_MENU);
+    }
+
+    openMainMenu() {
+        this.scene.start(GC.SCENES.MAIN_MENU);
+    }
+
     finishGameIfNeeded() {
         if (this.isGameFinished()) {
             Scaler.setResolution(this, 1200, 900);
