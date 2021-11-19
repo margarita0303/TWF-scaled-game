@@ -82,7 +82,8 @@ class LevelMenuScene extends Phaser.Scene {
             this.scene.start(GC.SCENES.LEVEL_GENERATION, {
                 'numberOfFormulas': numberOfFormulas,
                 'initialExpressionPath': initialExpressionPath,
-                'substitutionsPath': substitutionsPath
+                'substitutionsPath': substitutionsPath,
+                'levelNumber' : index - 1
             });
         });
 

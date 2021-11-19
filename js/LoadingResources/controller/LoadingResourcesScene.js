@@ -6,6 +6,7 @@ class LoadingResourcesScene extends Phaser.Scene {
     init(params) {
         this.levelGenerationInfo = params.levelGenerationInfo;
         this.formulas = params.formulas;
+        this.levelNumber = params.levelNumber;
     }
 
     preload() {
@@ -49,9 +50,11 @@ class LoadingResourcesScene extends Phaser.Scene {
     }
 
     create() {
+        console.log("LevelNumber in lr", this.levelNumber)
         this.scene.start(GC.SCENES.GAME, {
             'formulas': this.formulas,
-            'levelGenerationInfo': this.levelGenerationInfo
+            'levelGenerationInfo': this.levelGenerationInfo,
+            'levelNumber' : this.levelNumber
         });
     }
 

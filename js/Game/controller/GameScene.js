@@ -8,6 +8,7 @@ class GameScene extends Phaser.Scene {
         this.levelGenerationInfo = params.levelGenerationInfo;
 
         this.formulas = params.formulas;
+        this.levelNumber = params.levelNumber;
 
         this.displayingFormulas = [];
         this.indexOfLastDisplayingFormula = -1;
@@ -19,6 +20,7 @@ class GameScene extends Phaser.Scene {
     }
 
     create() {
+        this.levelsInfo = this.cache.json.get('levelsInfo');
         this.sizer = new GameSizer(this);
 
         this.placeCannon();
@@ -130,10 +132,30 @@ class GameScene extends Phaser.Scene {
         if (this.isGameFinished()) {
             Scaler.setResolution(this, 1200, 900);
 
-            this.scene.start(GC.SCENES.GAME_COMPETE, {
-                'score': this.score,
-                'levelGenerationInfo': this.levelGenerationInfo
-            });
+            let numberOfLevels = 2;
+            // number of levels = 2
+            // change it later !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            // and use this.levelsInfo.levels.length instead of "2"
+
+            if (this.score > 0 && numberOfLevels > this.levelNumber + 1) {
+                let basePath = "/js/GameConfiguration";
+                let initialExpressionPath = basePath + this.levelsInfo.levels[this.levelNumber + 1].initialExpressions;
+                let substitutionsPath = basePath + this.levelsInfo.levels[this.levelNumber + 1].substitutions;
+                let numberOfFormulas = this.levelsInfo.levels[this.levelNumber + 1].numberOfFormulas;
+
+                this.scene.start(GC.SCENES.LEVEL_GENERATION, {
+                    'numberOfFormulas': numberOfFormulas,
+                    'initialExpressionPath': initialExpressionPath,
+                    'substitutionsPath': substitutionsPath,
+                    'levelNumber' : this.levelNumber + 1
+                });
+            }
+            else {
+                this.scene.start(GC.SCENES.GAME_COMPETE, {
+                    'score': this.score,
+                    'levelGenerationInfo': this.levelGenerationInfo
+                });
+            }
         }
     }
 
