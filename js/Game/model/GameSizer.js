@@ -53,9 +53,11 @@ class GameSizer {
     }
 
     cannon_MovingCenterX() {
-        let width = this.scene.game.renderer.width;
+        // let width = this.scene.game.renderer.width;
+        //
+        // return width - 25 - 60;
 
-        return width - 25 - 60;
+        return 1300;
     }
 
     cannon_MovingCenterY() {
