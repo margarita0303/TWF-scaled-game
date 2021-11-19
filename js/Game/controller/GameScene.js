@@ -109,7 +109,7 @@ class GameScene extends Phaser.Scene {
             pauseButton.setFontFamily('Ribeye');
         });
         pauseButton.on('pointerout', () => {
-            mpauseButton.setFontFamily('RibeyeMarrow');
+            pauseButton.setFontFamily('RibeyeMarrow');
         });
         pauseButton.on('pointerup', () => {
             // Scaler.setResolution(this, 1200, 900);
