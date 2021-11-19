@@ -192,4 +192,51 @@ class GameSizer {
         return centerX + distanceToCenter;
     }
 
+    mainMenuButton_LeftX() {
+        return 0;
+    }
+
+    mainMenuButton_TopY() {
+        return 30;
+    }
+
+    mainMenuButton_fontSize() {
+        return 40;
+    }
+
+    mainMenuButton_fontColor() {
+        return '#000';
+    }
+
+    levelMenuButton_LeftX() {
+        return 400;
+    }
+
+    levelMenuButton_TopY() {
+        return 30;
+    }
+
+    levelMenuButton_fontSize() {
+        return 40;
+    }
+
+    levelMenuButton_fontColor() {
+        return '#000';
+    }
+
+    pauseButton_LeftX() {
+        return 1435;
+    }
+
+    pauseButton_TopY() {
+        return 130;
+    }
+
+    pauseButton_fontSize() {
+        return 45;
+    }
+
+    pauseButton_fontColor() {
+        return '#000';
+    }
 }
