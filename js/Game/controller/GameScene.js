@@ -23,6 +23,7 @@ class GameScene extends Phaser.Scene {
 
         this.placeCannon();
         this.placeScoreLabels();
+        this.placePauseButton();
 
         this.input.on('pointerdown', this.shoot(this));
         this.keyM = this.input.keyboard.addKey('M');
