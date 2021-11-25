@@ -56,6 +56,10 @@ class GameScene extends Phaser.Scene {
 
         let mainMenuButton = scene.add.text(leftX, topY,
             'main menu', { fontFamily: 'RibeyeMarrow', fontSize: fontSize, color: fontColor });
+
+        this.mainMenuButtonHeight = mainMenuButton.height;
+        this.mainMenuButtonWidth = mainMenuButton.width;
+
         mainMenuButton.setInteractive();
         mainMenuButton.on('pointerover', () => {
             mainMenuButton.setFontFamily('Ribeye');
@@ -81,6 +85,10 @@ class GameScene extends Phaser.Scene {
 
         let levelMenuButton = scene.add.text(leftX, topY,
             'level menu', { fontFamily: 'RibeyeMarrow', fontSize: fontSize, color: fontColor });
+
+        this.levelMenuButtonHeight = levelMenuButton.height;
+        this.levelMenuButtonWidth = levelMenuButton.width;
+
         levelMenuButton.setInteractive();
         levelMenuButton.on('pointerover', () => {
             levelMenuButton.setFontFamily('Ribeye');
@@ -106,6 +114,10 @@ class GameScene extends Phaser.Scene {
 
         let pauseButton = scene.add.text(leftX, topY,
             'pause', { fontFamily: 'RibeyeMarrow', fontSize: fontSize, color: fontColor });
+
+        this.pauseButtonHeight = pauseButton.height;
+        this.pauseButtonWidth = pauseButton.width;
+
         pauseButton.setInteractive();
         pauseButton.on('pointerover', () => {
             pauseButton.setFontFamily('Ribeye');
@@ -396,6 +408,16 @@ class GameScene extends Phaser.Scene {
 
             let startPositionX = scene.sizer.cannonBall_StartPositionX();
             let startPositionY = scene.sizer.cannonBall_StartPositionY();
+
+            let sizer = this.sizer;
+
+            // in the area of pause button we don`t shoot
+            if (this.input.activePointer.downY >= sizer.pauseButton_TopY() &&
+                this.input.activePointer.downX >= sizer.pauseButton_LeftX() &&
+                    this.input.activePointer.downY <= sizer.pauseButton_TopY() + this.pauseButtonHeight &&
+                        this.input.activePointer.downX < sizer.pauseButton_LeftX() + this.pauseButtonWidth) {
+                return;
+            }
 
             let cannonBallObj = scene.physics.add.image(startPositionX, startPositionY, 'cannonBall');
             cannonBallObj.setScale(this.sizer.cannonBall_Scale());
