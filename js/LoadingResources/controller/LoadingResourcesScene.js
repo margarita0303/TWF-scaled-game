@@ -13,6 +13,7 @@ class LoadingResourcesScene extends Phaser.Scene {
         this.load.image('cannon', '/js/LoadingResources/assets/cannon.png');
         this.load.image('cannonBall', '/js/LoadingResources/assets/cannonBall.png');
         this.load.image('cardBackground_Regular', '/js/LoadingResources/assets/cardBackground_Regular.png');
+        this.load.image('cardBackground_Regular_For_Rule', '/js/LoadingResources/assets/cardBackground_Regular_For_Rule.png');
         this.load.image('cardBackground_Hit', '/js/LoadingResources/assets/cardBackground_Hit.png');
 
         this.load.image('arrow', '/js/LoadingResources/assets/arrow.png');
