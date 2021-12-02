@@ -106,17 +106,27 @@ class LevelFormulaGenerator {
             let substitutionPlaces = this.getSubstitutionPlaces(expression, substitution);
 
             if (0 < substitutionPlaces.length) {
+
+                // ХОТИМ привести substitution.origin, substitution.target к нужному виду
+
                 let rawFormula = this.applySubstitution(expression, substitution, substitutionPlaces);
-                // we want origin to be in special format
-                let origin = this.applyIdSubstitution(expression, substitution, substitutionPlaces);
+
+                // console.log("rawformula", rawFormula);
+                // console.log("origin", substitution.origin);
+                // console.log("target", substitution.target);
+
+                console.log(substitution.origin);
+                console.log(substitution.target);
+                console.log(this.structureStringToString(substitution.origin));
+                console.log(this.structureStringToString(substitution.target))
 
                 this.formula = {
                     'label':        rawFormula,
                     'url':          this.urlForRawFormula(rawFormula),
                     'scoreForHit':  substitution.scoreForHit,
                     'scoreForSkip': substitution.scoreForSkip,
-                    "origin":       origin,
-                    "target":       rawFormula
+                    "origin":       this.structureStringToString(substitution.origin),
+                    "target":       this.structureStringToString(substitution.target)
                 };
 
                 // console.log("origin, target", this.formula.origin, this.formula.target);
@@ -148,17 +158,79 @@ class LevelFormulaGenerator {
             "setTheory")
     }
 
-    applyIdSubstitution(expression, substitution, place) {
-        if (place.constructor === Array) {
-            place = this.pickRandomElement(place);
+    canBeReplaced(expression) {
+        let expressionInNewFormat = expression.slice();
+        expressionInNewFormat = expressionInNewFormat.replace("implic(A;B)", "A->B");
+        expressionInNewFormat = expressionInNewFormat.replace("implic(!A;B)", "!A->B");
+        expressionInNewFormat = expressionInNewFormat.replace("implic(A;!B)", "A->!B");
+        expressionInNewFormat = expressionInNewFormat.replace("implic(!A;!B)", "!A->!B");
+        expressionInNewFormat = expressionInNewFormat.replace("or(A;B)", "A|B");
+        expressionInNewFormat = expressionInNewFormat.replace("or(!A;B)", "!A|B");
+        expressionInNewFormat = expressionInNewFormat.replace("or(A;!B)", "A|!B");
+        expressionInNewFormat = expressionInNewFormat.replace("or(!A;!B)", "!A|!B");
+        expressionInNewFormat = expressionInNewFormat.replace("and(A;B)", "A&B");
+        expressionInNewFormat = expressionInNewFormat.replace("and(!A;B)", "!A&B");
+        expressionInNewFormat = expressionInNewFormat.replace("and(A;!B)", "A&!B");
+        expressionInNewFormat = expressionInNewFormat.replace("and(!A;!B)", "!A&!B");
+        expressionInNewFormat = expressionInNewFormat.replace("not(A)", "!A");
+        expressionInNewFormat = expressionInNewFormat.replace("not(B)", "!B");
+        expressionInNewFormat = expressionInNewFormat.replace("not(!B)", "!!B");
+        expressionInNewFormat = expressionInNewFormat.replace("not", "!");
+
+        if(expressionInNewFormat === expression) {
+            return false;
+        }
+        return true;
+    }
+
+    structureStringToString(expression) {
+        let expressionInNewFormat = expression.slice();
+
+        while (this.canBeReplaced(expressionInNewFormat)) {
+            expressionInNewFormat = expressionInNewFormat.replace("implic(A;B)", "A->B");
+            expressionInNewFormat = expressionInNewFormat.replace("implic(!A;B)", "!A->B");
+            expressionInNewFormat = expressionInNewFormat.replace("implic(A;!B)", "A->!B");
+            expressionInNewFormat = expressionInNewFormat.replace("implic(!A;!B)", "!A->!B");
+            expressionInNewFormat = expressionInNewFormat.replace("or(A;B)", "A|B");
+            expressionInNewFormat = expressionInNewFormat.replace("or(!A;B)", "!A|B");
+            expressionInNewFormat = expressionInNewFormat.replace("or(A;!B)", "A|!B");
+            expressionInNewFormat = expressionInNewFormat.replace("or(!A;!B)", "!A|!B");
+            expressionInNewFormat = expressionInNewFormat.replace("and(A;B)", "A&B");
+            expressionInNewFormat = expressionInNewFormat.replace("and(!A;B)", "!A&B");
+            expressionInNewFormat = expressionInNewFormat.replace("and(A;!B)", "A&!B");
+            expressionInNewFormat = expressionInNewFormat.replace("and(!A;!B)", "!A&!B");
+            expressionInNewFormat = expressionInNewFormat.replace("not(A)", "!A");
+            expressionInNewFormat = expressionInNewFormat.replace("not(!A)", "!!A");
+            expressionInNewFormat = expressionInNewFormat.replace("not(B)", "!B");
+            expressionInNewFormat = expressionInNewFormat.replace("not(!B)", "!!B");
+            expressionInNewFormat = expressionInNewFormat.replace("not", "!");
         }
 
-        return TWF.api.applySubstitution(expression,
-            substitution.origin, substitution.origin,
-            parseInt(place.parentStartPosition), parseInt(place.parentEndPosition),
-            parseInt(place.startPosition), parseInt(place.endPosition),
-            "setTheory")
+        return expressionInNewFormat;
     }
+
+    // applyIdSubstitution(expression, substitution, place) {
+    //     if (place.constructor === Array) {
+    //         place = this.pickRandomElement(place);
+    //     }
+    //
+    //
+    //     let tmp = TWF.api.structureStringToExpression_69c2cy$(substitution.origin);
+    //     console.log("tmp", tmp);
+    //     let tmp2 = TWF.api.applySubstitution(substitution.origin,
+    //         substitution.origin, substitution.origin,
+    //         parseInt(place.parentStartPosition), parseInt(place.parentEndPosition),
+    //         parseInt(place.startPosition), parseInt(place.endPosition),
+    //         "setTheory");
+    //     console.log(tmp2);
+    //
+    //
+    //     return TWF.api.applySubstitution(substitution.origin,
+    //         substitution.origin, substitution.origin,
+    //         parseInt(place.parentStartPosition), parseInt(place.parentEndPosition),
+    //         parseInt(place.startPosition), parseInt(place.endPosition),
+    //         "setTheory")
+    // }
 
     pickRandomElement(items) {
         return items[Math.floor(Math.random() * items.length)];

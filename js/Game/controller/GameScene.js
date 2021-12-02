@@ -496,6 +496,25 @@ class GameScene extends Phaser.Scene {
         cannonBallObject.destroy();
     }
 
+    heightForRawFormula(rawFormula) {
+        return 30;
+    }
+
+    urlForFormula(formula) {
+        let height = this.heightForRawFormula(formula);
+        let texFormula = formula.split("\\").join("\\backslash ")
+            .split("|").join("\\vee ")
+            .split("&").join("\\wedge ")
+            .split("->").join("\\rightarrow ")
+            .split("=>").join("\\Rightarrow ")
+            .split("!").join("\\neg ");
+
+        return 'https://chart.apis.google.com/chart?cht=tx' +  // tex parameter
+            '&chs=' + height +                                 // specify the height of formula
+            '&chl=' + encodeURIComponent(texFormula) +         // specify the text of formula
+            '&chf=bg,s,00000000'                               // make transparent background
+    }
+
     placeRule(formula) {
         let sizer = this.sizer;
 
@@ -506,7 +525,6 @@ class GameScene extends Phaser.Scene {
 
         let RuleCenterX = background_RightX - background.displayWidth / 2;
         let RuleCenterY = background_BottomY - background.displayHeight / 2;
-        console.log("center for rule", RuleCenterX, RuleCenterY);
 
         let ruleFontSize = sizer.scoreRule_FontSize();
         let ruleColor = sizer.scoreRule_Color();
@@ -528,11 +546,24 @@ class GameScene extends Phaser.Scene {
 
         let formulaOrigin = formula.origin;
         let formulaTarget = formula.target;
-        let rule = formulaOrigin + " -> " + formulaTarget;
+        let rule = formulaOrigin + "->" + formulaTarget;
 
-        this.add.text(RuleCenterX, RuleCenterY, rule,
-            { fontSize: ruleFontSize, color: ruleColor })
-            .setOrigin(0.5);
+        // let url = this.urlForFormula("A|B");
+        // console.log(url);
+        // console.log(rule);
+        // this.load.image("A|B", url);
+
+        let tmp = "A|B";
+        let url = this.urlForFormula(tmp);
+        console.log(url);
+        console.log(rule);
+        this.load.image(tmp, url);
+
+        // this.add.text(RuleCenterX, RuleCenterY, rule,
+        //     { fontSize: ruleFontSize, color: ruleColor })
+        //     .setOrigin(0.5);
+
+        this.physics.add.image(RuleCenterX, RuleCenterY, tmp).setOrigin(0.5);
     }
 
     formulaHasBeenHit(formula) {
