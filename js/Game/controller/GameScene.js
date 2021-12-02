@@ -528,7 +528,7 @@ class GameScene extends Phaser.Scene {
 
         let formulaOrigin = formula.origin;
         let formulaTarget = formula.target;
-        let rule = formulaOrigin + formulaTarget;
+        let rule = formulaOrigin + " -> " + formulaTarget;
 
         this.add.text(RuleCenterX, RuleCenterY, rule,
             { fontSize: ruleFontSize, color: ruleColor })

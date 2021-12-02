@@ -98,23 +98,28 @@ class LevelFormulaGenerator {
 
     transformFormula() {
         let expression = this.formula.label;
+        // console.log("substitutions", this.substitutions);
         let shuffledSubstitutions = this.shuffler.shuffledSubstitutions();
+        // console.log("shuffled substitutions", shuffledSubstitutions);
 
         for (let substitution of shuffledSubstitutions) {
             let substitutionPlaces = this.getSubstitutionPlaces(expression, substitution);
 
             if (0 < substitutionPlaces.length) {
                 let rawFormula = this.applySubstitution(expression, substitution, substitutionPlaces);
+                // we want origin to be in special format
+                let origin = this.applyIdSubstitution(expression, substitution, substitutionPlaces);
 
                 this.formula = {
                     'label':        rawFormula,
                     'url':          this.urlForRawFormula(rawFormula),
                     'scoreForHit':  substitution.scoreForHit,
                     'scoreForSkip': substitution.scoreForSkip,
-                    "origin":       substitution.origin,
-                    "target":       substitution.target
+                    "origin":       origin,
+                    "target":       rawFormula
                 };
 
+                // console.log("origin, target", this.formula.origin, this.formula.target);
                 // label == target
 
                 break;
@@ -138,6 +143,18 @@ class LevelFormulaGenerator {
 
         return TWF.api.applySubstitution(expression,
             substitution.origin, substitution.target,
+            parseInt(place.parentStartPosition), parseInt(place.parentEndPosition),
+            parseInt(place.startPosition), parseInt(place.endPosition),
+            "setTheory")
+    }
+
+    applyIdSubstitution(expression, substitution, place) {
+        if (place.constructor === Array) {
+            place = this.pickRandomElement(place);
+        }
+
+        return TWF.api.applySubstitution(expression,
+            substitution.origin, substitution.origin,
             parseInt(place.parentStartPosition), parseInt(place.parentEndPosition),
             parseInt(place.startPosition), parseInt(place.endPosition),
             "setTheory")
