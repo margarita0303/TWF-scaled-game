@@ -241,4 +241,20 @@ class GameSizer {
     pauseButton_fontColor() {
         return '#000';
     }
+
+    scoreRule_FontSize() {
+        return 44;
+    }
+
+    scoreRule_Color() {
+        return '#000';
+    }
+
+    ruleBackground_RightX() {
+        return 1580;
+    }
+
+    ruleBackground_BottomY() {
+        return 850;
+    }
 }

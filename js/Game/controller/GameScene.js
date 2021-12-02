@@ -415,7 +415,7 @@ class GameScene extends Phaser.Scene {
             if (this.input.activePointer.downY >= sizer.pauseButton_TopY() &&
                 this.input.activePointer.downX >= sizer.pauseButton_LeftX() &&
                     this.input.activePointer.downY <= sizer.pauseButton_TopY() + this.pauseButtonHeight &&
-                        this.input.activePointer.downX < sizer.pauseButton_LeftX() + this.pauseButtonWidth) {
+                        this.input.activePointer.downX <= sizer.pauseButton_LeftX() + this.pauseButtonWidth) {
                 return;
             }
 
@@ -492,6 +492,41 @@ class GameScene extends Phaser.Scene {
         cannonBallObject.destroy();
     }
 
+    placeRule() {
+        let sizer = this.sizer;
+
+        let background_RightX = sizer.ruleBackground_RightX();
+        let background_BottomY = sizer.ruleBackground_BottomY();
+        let background = this.physics.add.image(background_RightX, background_BottomY, 'cardBackground_Regular_For_Rule');
+        background.setOrigin(1, 1);
+
+        let RuleCenterX = background_RightX - background.displayWidth / 2;
+        let RuleCenterY = background_BottomY - background.displayHeight / 2;
+        console.log("center for rule", RuleCenterX, RuleCenterY);
+
+        let ruleFontSize = sizer.scoreRule_FontSize();
+        let ruleColor = sizer.scoreRule_Color();
+
+        // this.add.text(ruleRightX - 550, ruleBottomY - 200, 'The rule',
+        //     { fontSize: ruleFontSize, color: ruleColor })
+        //     .setOrigin(1);
+
+        // this.add.text(ruleRightX - 550/2, background_BottomY - backgroundHeight / 2 - ruleFontSize / 2, 'The rule',
+        //     { fontSize: ruleFontSize, color: ruleColor })
+        // const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
+        // const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
+
+        // text in the center of the screen
+        // console.log(screenCenterX, screenCenterY)
+
+        // this.add.text(screenCenterX, screenCenterY, 'The rule',
+        //     { fontSize: ruleFontSize, color: ruleColor }).setOrigin(0.5)
+
+        this.add.text(RuleCenterX, RuleCenterY, 'The rule',
+            { fontSize: ruleFontSize, color: ruleColor })
+            .setOrigin(0.5);
+    }
+
     formulaHasBeenHit(formula) {
         formula.isHit = true;
 
@@ -505,6 +540,7 @@ class GameScene extends Phaser.Scene {
 
         if (formula.arrow && formula.scoreForHit < 0) {
             formula.arrow.setTexture('arrow_Green');
+            this.placeRule();
 
             let scoreRightX = this.sizer.arrowScoreLeft_RightX();
             let scoreCenterY = formula.arrow.y;
