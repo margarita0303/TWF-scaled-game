@@ -63,11 +63,36 @@ class LevelFormulaGenerator {
     initializeFormula() {
         let randomInitialExpression
             = this.initialExpressions[Math.floor(Math.random() * this.initialExpressions.length)];
+
+        // let substitutionPlaces = this.getSubstitutionPlaces(randomInitialExpression, randomInitialExpression);
+        //
+        // if (0 < substitutionPlaces.length) {
+        //     let rawFormula = this.applySubstitution(randomInitialExpression, randomInitialExpression, substitutionPlaces);
+        //
+        //     this.formula = {
+        //         'label':        rawFormula,
+        //         'url':          this.urlForRawFormula(randomInitialExpression),
+        //         'scoreForHit':  0,
+        //         'scoreForSkip': 0,
+        //         "origin":       rawFormula,
+        //         "target":       0
+        //     };
+        //
+        //     // label == target
+        //
+        //     break;
+        // }
+
+        // target == 0 is not a problem, we do not have target at this moment
+        // we do not need origin too at this moment
+
         this.formula = {
             'label':        randomInitialExpression,
             'url':          this.urlForRawFormula(randomInitialExpression),
             'scoreForHit':  0,
-            'scoreForPass': 0
+            'scoreForPass': 0,
+            "origin":       randomInitialExpression,
+            "target":       0
         }
     }
 
@@ -85,8 +110,12 @@ class LevelFormulaGenerator {
                     'label':        rawFormula,
                     'url':          this.urlForRawFormula(rawFormula),
                     'scoreForHit':  substitution.scoreForHit,
-                    'scoreForSkip': substitution.scoreForSkip
+                    'scoreForSkip': substitution.scoreForSkip,
+                    "origin":       substitution.origin,
+                    "target":       substitution.target
                 };
+
+                // label == target
 
                 break;
             }
