@@ -225,6 +225,8 @@ class GameScene extends Phaser.Scene {
 
         let scoreForHit = this.formulas[index].scoreForHit;
         let scoreForSkip = this.formulas[index].scoreForSkip;
+        let formulaOrigin = this.formulas[index].origin;
+        let formulaTarget = this.formulas[index].target;
 
         let arrow = undefined;
         if (0 < index) {
@@ -244,7 +246,9 @@ class GameScene extends Phaser.Scene {
             'arrow': arrow,
             'scoreForHit': scoreForHit,
             'scoreForSkip': scoreForSkip,
-            'isHit': false
+            'isHit': false,
+            'origin' : formulaOrigin,
+            'target' : formulaTarget
         };
 
         if (0 === index) {
@@ -492,7 +496,7 @@ class GameScene extends Phaser.Scene {
         cannonBallObject.destroy();
     }
 
-    placeRule() {
+    placeRule(formula) {
         let sizer = this.sizer;
 
         let background_RightX = sizer.ruleBackground_RightX();
@@ -522,7 +526,11 @@ class GameScene extends Phaser.Scene {
         // this.add.text(screenCenterX, screenCenterY, 'The rule',
         //     { fontSize: ruleFontSize, color: ruleColor }).setOrigin(0.5)
 
-        this.add.text(RuleCenterX, RuleCenterY, 'The rule',
+        let formulaOrigin = formula.origin;
+        let formulaTarget = formula.target;
+        let rule = formulaOrigin + formulaTarget;
+
+        this.add.text(RuleCenterX, RuleCenterY, rule,
             { fontSize: ruleFontSize, color: ruleColor })
             .setOrigin(0.5);
     }
@@ -540,7 +548,7 @@ class GameScene extends Phaser.Scene {
 
         if (formula.arrow && formula.scoreForHit < 0) {
             formula.arrow.setTexture('arrow_Green');
-            this.placeRule();
+            this.placeRule(formula);
 
             let scoreRightX = this.sizer.arrowScoreLeft_RightX();
             let scoreCenterY = formula.arrow.y;
