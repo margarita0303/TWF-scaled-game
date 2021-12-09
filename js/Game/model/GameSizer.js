@@ -257,4 +257,13 @@ class GameSizer {
     ruleBackground_BottomY() {
         return 850;
     }
+
+    congratCenterX() {
+        return this.cardBackground_LeftX() + this.cardBackground_Width() / 2 + 10
+    }
+
+    congratCenterY() {
+        const centerY = this.scene.cameras.main.worldView.y + this.scene.cameras.main.height / 2
+        return centerY;
+    }
 }

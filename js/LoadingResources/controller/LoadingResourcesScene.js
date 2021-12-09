@@ -21,6 +21,7 @@ class LoadingResourcesScene extends Phaser.Scene {
         this.load.image('arrow_Red', '/js/LoadingResources/assets/arrow_Red.png');
 
         this.load.image('pauseMenuBackground', '/js/LoadingResources/assets/pauseMenuBackground.png');
+        this.load.image('congrats', '/js/LoadingResources/assets/congrats.png')
 
         for (let formula of this.formulas) {
             this.load.image(formula.label, formula.url);

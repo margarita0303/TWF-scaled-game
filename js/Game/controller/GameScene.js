@@ -41,7 +41,21 @@ class GameScene extends Phaser.Scene {
         this.moveFormulas();
         this.removeFormulasIfNeeded();
 
+
+        // картинка тут добавляется, поверх нее формулы
+        // this.addCongratulations();
+
+        if(this.isGameFinished()) {
+            // ыообще это неправильно - рисовать картинку каждый раз при gamefinished, это просто экспериметы
+            // этот код выполняется, но ничего не происходит
+            this.addCongratulations();
+            console.log("addCongratulations");
+        }
         this.finishGameIfNeeded();
+    }
+
+    addCongratulations() {
+        this.physics.add.image(this.sizer.congratCenterX(), this.sizer.congratCenterY(), 'congrats').setOrigin(0.5);
     }
 
     placeMainMenuButton() {
@@ -103,6 +117,7 @@ class GameScene extends Phaser.Scene {
     }
 
     placePauseButton() {
+
         let sizer = this.sizer;
         let scene = this;
 
@@ -140,10 +155,23 @@ class GameScene extends Phaser.Scene {
         this.scene.start(GC.SCENES.MAIN_MENU);
     }
 
+    // если прописать внтури addcongartulations до зависания - картинка не рисуется, а вот программа действительно зависает
+    sleep(milliseconds) {
+        let time = new Date().getTime();
+        while (time + milliseconds >= new Date().getTime()) {
+            this.focusCannonOnPointer();
+            this.handleKeyboardInput();
+            this.moveCannonBalls();
+        }
+    }
+
     finishGameIfNeeded() {
         if (this.isGameFinished()) {
-            Scaler.setResolution(this, 1200, 900);
 
+            // эта картинка прорисовывается, но сразу же запускается следующий уровень, то есть это меньше секунды длится
+            // this.addCongratulations();
+
+            Scaler.setResolution(this, 1200, 900);
             let numberOfLevels = 2;
             // number of levels = 2
             // change it later !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -161,6 +189,26 @@ class GameScene extends Phaser.Scene {
                     'substitutionsPath': substitutionsPath,
                     'levelNumber' : this.levelNumber + 1
                 });
+
+                // прорисовывается и длится меньше секунды - дальше запуск следующего уровня
+                // this.addCongratulations();
+
+                // пыталась сделать sleep() - написала ее выше, картинки вообще нет
+
+                // ниже еще одна попытка запустить следующую сцену позже, а перед этим нарисовать картинку - не получается
+                // картинки вообще нет
+
+                // setTimeout(
+                //     () => {
+                //         this.scene.start(GC.SCENES.LEVEL_GENERATION, {
+                //             'numberOfFormulas': numberOfFormulas,
+                //             'initialExpressionPath': initialExpressionPath,
+                //             'substitutionsPath': substitutionsPath,
+                //             'levelNumber' : this.levelNumber + 1
+                //         });
+                //     },
+                //     5 * 1000
+                // );
             }
             else {
                 this.scene.start(GC.SCENES.GAME_COMPETE, {
@@ -576,10 +624,15 @@ class GameScene extends Phaser.Scene {
 
         let shadowY = this.sizer.cardBackground_ShadowY();
         formula.formula.y += shadowY;
+        // this.addCongratulations();
 
         if (formula.arrow && formula.scoreForHit < 0) {
             formula.arrow.setTexture('arrow_Green');
             this.placeRule(formula);
+
+            // если здесь добавить картинку с поздравлениями, все прорисуется почему-то
+            // все хорошо
+            // this.addCongratulations();
 
             let scoreRightX = this.sizer.arrowScoreLeft_RightX();
             let scoreCenterY = formula.arrow.y;
