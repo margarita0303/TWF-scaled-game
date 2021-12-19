@@ -594,7 +594,7 @@ class GameScene extends Phaser.Scene {
         let ruleFontSize = sizer.scoreRule_FontSize();
         let ruleColor = sizer.scoreRule_Color();
 
-        // Закомментированный код понадобится для будущей реализации вывода правилы
+        // Закомментированный код понадобится для будущей реализации вывода правила
 
         // this.add.text(ruleRightX - 550, ruleBottomY - 200, 'The rule',
         //     { fontSize: ruleFontSize, color: ruleColor })
@@ -620,12 +620,9 @@ class GameScene extends Phaser.Scene {
         // console.log(rule);
         // this.load.image("A|B", url);
 
-        let tmp = "A|B&C";
-        let url = this.urlForFormula(tmp);
-        console.log(url);
-        console.log(rule);
-        this.load.image(tmp, url);
-        this.physics.add.image(RuleCenterX, RuleCenterY, tmp).setOrigin(0.5);
+        this.add.text(RuleCenterX, RuleCenterY, rule,
+            { fontSize: ruleFontSize, color: ruleColor })
+            .setOrigin(0.5);
     }
 
     formulaHasBeenHit(formula) {
