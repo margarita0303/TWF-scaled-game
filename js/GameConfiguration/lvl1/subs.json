@@ -1,14 +1,50 @@
 {
   "substitutions": [
     {
-      "origin": "A|B",
-      "target": "A->B",
+      "origin": "sin(30)",
+      "target": "cos(60)",
+      "scoreForHit": -30,
+      "scoreForSkip": 30
+    },
+    {
+      "origin": "cos(60)",
+      "target": "1/3",
       "scoreForHit": 30,
       "scoreForSkip": -30
     },
     {
-      "origin": "A->B",
-      "target": "!A|B",
+      "origin": "sin(45)",
+      "target": "sqrt(2)/2",
+      "scoreForHit": -30,
+      "scoreForSkip": 30
+    },
+    {
+      "origin": "sqrt(2)/2",
+      "target": "cos(180)",
+      "scoreForHit": 30,
+      "scoreForSkip": -30
+    },
+    {
+      "origin": "sin(60)",
+      "target": "cos(30)",
+      "scoreForHit": -30,
+      "scoreForSkip": 30
+    },
+    {
+      "origin": "cos(120)",
+      "target": "1/2",
+      "scoreForHit": 30,
+      "scoreForSkip": -30
+    },
+    {
+      "origin": "cos(180)",
+      "target": "1",
+      "scoreForHit": 30,
+      "scoreForSkip": -30
+    },
+    {
+      "origin": "cos(90)",
+      "target": "0",
       "scoreForHit": -30,
       "scoreForSkip": 30
     }

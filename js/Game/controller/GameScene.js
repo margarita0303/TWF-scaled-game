@@ -16,7 +16,31 @@ class GameScene extends Phaser.Scene {
         this.displayingCannonBalls = [];
         this.score = 0;
 
+        this.preload()
+        this.message = this.deepClone(this.cache.json.get(this.messagePath));
+
+        this.numberOfLevels = 9;
         Scaler.setResolution(this, GC.RESOLUTIONS.MEDIUM.GAME.width, GC.RESOLUTIONS.MEDIUM.GAME.height);
+    }
+
+    preload() {
+        this.messagePath = "/js/GameConfiguration/lvl" + (this.levelNumber + 1).toString() + "/messageInTheEnd.json";
+        this.load.json(this.messagePath, this.messagePath);
+    }
+
+    deepClone(aObject) {
+        if (typeof aObject != "object") {
+            return aObject;
+        }
+
+        let v;
+        let bObject = Array.isArray(aObject) ? [] : {};
+        for (let prop in aObject) {
+            v = aObject[prop];
+            bObject[prop] = (typeof v === "object") ? this.deepClone(v) : v;
+        }
+
+        return bObject;
     }
 
     create() {
@@ -26,6 +50,8 @@ class GameScene extends Phaser.Scene {
         this.placeCannon();
         this.placeScoreLabels();
         this.placePauseButton();
+
+        this.congratsWasAdded = false;
 
         this.input.on('pointerdown', this.shoot(this));
         this.keyM = this.input.keyboard.addKey('M');
@@ -41,21 +67,26 @@ class GameScene extends Phaser.Scene {
         this.moveFormulas();
         this.removeFormulasIfNeeded();
 
-
-        // картинка тут добавляется, поверх нее формулы
-        // this.addCongratulations();
-
-        if(this.isGameFinished()) {
-            // ыообще это неправильно - рисовать картинку каждый раз при gamefinished, это просто экспериметы
-            // этот код выполняется, но ничего не происходит
-            this.addCongratulations();
-            console.log("addCongratulations");
-        }
         this.finishGameIfNeeded();
     }
 
     addCongratulations() {
+        this.congratsStartTime = new Date().getTime();
+        console.log("now we get start time", this.congratsStartTime);
         this.physics.add.image(this.sizer.congratCenterX(), this.sizer.congratCenterY(), 'congrats').setOrigin(0.5);
+        let labelFontSize = this.sizer.congratsLabel_FontSize();
+        let labelColor = this.sizer.scoreLabel_Color();
+        this.add.text(this.sizer.messageCongratCenterX(), this.sizer.messageCongratCenterY(), 'Congratulations!',
+            { fontSize: labelFontSize, color: labelColor })
+            .setOrigin(0.5, 0.5);
+        this.add.text(this.sizer.levelPassedCenterX(), this.sizer.levelPassedCenterY(), 'Level passed!',
+            { fontSize: labelFontSize, color: labelColor })
+            .setOrigin(0.5, 0.5);
+        for(let i = 0; i < this.message.message.length; i++) {
+            this.add.text(this.sizer.messageCenterX(), this.sizer.messageCenterY() + i * 100, this.message.message[i]["string"],
+                { fontSize: this.sizer.messageFontSize(), color: labelColor})
+                .setOrigin(0.5, 0.5);
+        }
     }
 
     placeMainMenuButton() {
@@ -141,8 +172,6 @@ class GameScene extends Phaser.Scene {
             pauseButton.setFontFamily('RibeyeMarrow');
         });
         pauseButton.on('pointerup', () => {
-            // Scaler.setResolution(this, 1200, 900);
-            // console.log("No pause scene");
             this.showMenu();
         });
     }
@@ -155,29 +184,13 @@ class GameScene extends Phaser.Scene {
         this.scene.start(GC.SCENES.MAIN_MENU);
     }
 
-    // если прописать внтури addcongartulations до зависания - картинка не рисуется, а вот программа действительно зависает
-    sleep(milliseconds) {
-        let time = new Date().getTime();
-        while (time + milliseconds >= new Date().getTime()) {
-            this.focusCannonOnPointer();
-            this.handleKeyboardInput();
-            this.moveCannonBalls();
-        }
-    }
 
     finishGameIfNeeded() {
         if (this.isGameFinished()) {
 
-            // эта картинка прорисовывается, но сразу же запускается следующий уровень, то есть это меньше секунды длится
-            // this.addCongratulations();
-
             Scaler.setResolution(this, 1200, 900);
-            let numberOfLevels = 2;
-            // number of levels = 2
-            // change it later !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            // and use this.levelsInfo.levels.length instead of "2"
 
-            if (this.score > 0 && numberOfLevels > this.levelNumber + 1) {
+            if (this.score > 0 && this.numberOfLevels > this.levelNumber + 1) {
                 let basePath = "/js/GameConfiguration";
                 let initialExpressionPath = basePath + this.levelsInfo.levels[this.levelNumber + 1].initialExpressions;
                 let substitutionsPath = basePath + this.levelsInfo.levels[this.levelNumber + 1].substitutions;
@@ -190,25 +203,6 @@ class GameScene extends Phaser.Scene {
                     'levelNumber' : this.levelNumber + 1
                 });
 
-                // прорисовывается и длится меньше секунды - дальше запуск следующего уровня
-                // this.addCongratulations();
-
-                // пыталась сделать sleep() - написала ее выше, картинки вообще нет
-
-                // ниже еще одна попытка запустить следующую сцену позже, а перед этим нарисовать картинку - не получается
-                // картинки вообще нет
-
-                // setTimeout(
-                //     () => {
-                //         this.scene.start(GC.SCENES.LEVEL_GENERATION, {
-                //             'numberOfFormulas': numberOfFormulas,
-                //             'initialExpressionPath': initialExpressionPath,
-                //             'substitutionsPath': substitutionsPath,
-                //             'levelNumber' : this.levelNumber + 1
-                //         });
-                //     },
-                //     5 * 1000
-                // );
             }
             else {
                 this.scene.start(GC.SCENES.GAME_COMPETE, {
@@ -219,8 +213,31 @@ class GameScene extends Phaser.Scene {
         }
     }
 
+    congratulationScreenFinished() {
+        let currentTime = new Date().getTime();
+        if (this.congratsStartTime + 5000 < currentTime) {
+            console.log("current time", currentTime);
+            console.log("start time", this.congratsStartTime);
+            console.log("current time + 5000", this.congratsStartTime + 5000);
+        }
+
+        return (this.congratsStartTime + 5000 < currentTime);
+    }
+
     isGameFinished() {
-        return this.hasNoDisplayingFormulas() && this.allFormulasHasBeenPlaced()
+        if (!(this.hasNoDisplayingFormulas() && this.allFormulasHasBeenPlaced())) {
+            return false;
+        }
+        if (this.congratsWasAdded === false) {
+            if (this.score > 0) {
+                this.addCongratulations();
+                this.congratsWasAdded = true;
+            }
+        }
+        if (this.score > 0) {
+            return this.congratulationScreenFinished();
+        }
+        return true;
     }
 
     spanNewFormulaIfNeeded() {
@@ -577,6 +594,8 @@ class GameScene extends Phaser.Scene {
         let ruleFontSize = sizer.scoreRule_FontSize();
         let ruleColor = sizer.scoreRule_Color();
 
+        // Закомментированный код понадобится для будущей реализации вывода правилы
+
         // this.add.text(ruleRightX - 550, ruleBottomY - 200, 'The rule',
         //     { fontSize: ruleFontSize, color: ruleColor })
         //     .setOrigin(1);
@@ -601,16 +620,11 @@ class GameScene extends Phaser.Scene {
         // console.log(rule);
         // this.load.image("A|B", url);
 
-        let tmp = "A|B";
+        let tmp = "A|B&C";
         let url = this.urlForFormula(tmp);
         console.log(url);
         console.log(rule);
         this.load.image(tmp, url);
-
-        // this.add.text(RuleCenterX, RuleCenterY, rule,
-        //     { fontSize: ruleFontSize, color: ruleColor })
-        //     .setOrigin(0.5);
-
         this.physics.add.image(RuleCenterX, RuleCenterY, tmp).setOrigin(0.5);
     }
 
@@ -624,15 +638,10 @@ class GameScene extends Phaser.Scene {
 
         let shadowY = this.sizer.cardBackground_ShadowY();
         formula.formula.y += shadowY;
-        // this.addCongratulations();
 
         if (formula.arrow && formula.scoreForHit < 0) {
             formula.arrow.setTexture('arrow_Green');
-            this.placeRule(formula);
-
-            // если здесь добавить картинку с поздравлениями, все прорисуется почему-то
-            // все хорошо
-            // this.addCongratulations();
+            // this.placeRule(formula);
 
             let scoreRightX = this.sizer.arrowScoreLeft_RightX();
             let scoreCenterY = formula.arrow.y;

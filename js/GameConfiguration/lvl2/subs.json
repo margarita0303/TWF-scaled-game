@@ -1,100 +1,40 @@
 {
   "substitutions": [
     {
-      "origin": "A->B",
-      "target": "!A|B",
+      "origin": "tg(60)",
+      "target": "tg(240)",
       "scoreForHit": -30,
-      "scoreForSkip": 10
+      "scoreForSkip": 30
     },
     {
-      "origin": "!A|B",
-      "target": "A->B",
-      "scoreForHit": -30,
-      "scoreForSkip": 10
-    },
-    {
-      "origin": "A->B",
-      "target": "A|B",
-      "scoreForHit": 10,
+      "origin": "ctg(60)",
+      "target": "sqrt(2)/3",
+      "scoreForHit": 30,
       "scoreForSkip": -30
     },
     {
-      "origin": "A|B",
-      "target": "A->B",
-      "scoreForHit": 10,
+      "origin": "tg(45)",
+      "target": "ctg(45)",
+      "scoreForHit": -30,
+      "scoreForSkip": 30
+    },
+    {
+      "origin": "ctg(45)",
+      "target": "-1",
+      "scoreForHit": 30,
       "scoreForSkip": -30
     },
     {
-      "origin": "A->B",
-      "target": "!A->!B",
-      "scoreForHit": 15,
-      "scoreForSkip": -25
+      "origin": "-1",
+      "target": "tg(315)",
+      "scoreForHit": -30,
+      "scoreForSkip": 30
     },
     {
-      "origin": "!A->!B",
-      "target": "A->B",
-      "scoreForHit": 15,
-      "scoreForSkip": -25
-    },
-    {
-      "origin": "A->B",
-      "target": "A->!B",
-      "scoreForHit": 15,
-      "scoreForSkip": -25
-    },
-    {
-      "origin": "A->!B",
-      "target": "A->B",
-      "scoreForHit": 15,
-      "scoreForSkip": -25
-    },
-    {
-      "origin": "A->B",
-      "target": "!(A&!B)",
-      "scoreForHit": -25,
-      "scoreForSkip": 15
-    },
-    {
-      "origin": "!(A&!B)",
-      "target": "A->B",
-      "scoreForHit": -25,
-      "scoreForSkip": 15
-    },
-    {
-      "origin": "A->B",
-      "target": "!(!A&B)",
-      "scoreForHit": 15,
-      "scoreForSkip": -25
-    },
-    {
-      "origin": "!(!A&B)",
-      "target": "A->B",
-      "scoreForHit": 15,
-      "scoreForSkip": -25
-    },
-    {
-      "origin": "A->B",
-      "target": "A&!B",
-      "scoreForHit": 15,
-      "scoreForSkip": -25
-    },
-    {
-      "origin": "A&!B",
-      "target": "A->B",
-      "scoreForHit": 15,
-      "scoreForSkip": -25
-    },
-    {
-      "origin": "A->B",
-      "target": "!A&B",
-      "scoreForHit": 15,
-      "scoreForSkip": -25
-    },
-    {
-      "origin": "!A&B",
-      "target": "A->B",
-      "scoreForHit": 15,
-      "scoreForSkip": -25
+      "origin": "tg(240)",
+      "target": "sqrt(3)/3",
+      "scoreForHit": 30,
+      "scoreForSkip": -30
     }
   ]
 }

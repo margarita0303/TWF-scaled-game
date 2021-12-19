@@ -48,7 +48,16 @@ class LevelFormulaGenerator {
             .split("|").join("\\vee ")
             .split("&").join("\\wedge ")
             .split("->").join("\\rightarrow ")
-            .split("!").join("\\neg ");
+            .split("!").join("\\neg ")
+            .split("sin").join("\\sin ")
+            .split("cos").join("\\cos ")
+            .split("ctg").join("\\arctan ")
+            .split("tg").join("\\tan ")
+            .split("sin^2").join("\\sin^2 ")
+            .split("cos^2").join("\\cos^2 ")
+            .split("tg^2").join("\\tg^2 ")
+            .split("ctg^2").join("\\ctg^2 ")
+            .split("*").join("\\cdot ")
 
         return 'https://chart.apis.google.com/chart?cht=tx' +  // tex parameter
             '&chs=' + height +                                 // specify the height of formula
@@ -98,22 +107,21 @@ class LevelFormulaGenerator {
 
     transformFormula() {
         let expression = this.formula.label;
-        // console.log("substitutions", this.substitutions);
-        let shuffledSubstitutions = this.shuffler.shuffledSubstitutions();
-        // console.log("shuffled substitutions", shuffledSubstitutions);
+        // let shuffledSubstitutions = this.shuffler.shuffledSubstitutions();
 
-        for (let substitution of shuffledSubstitutions) {
+        let substitutions = this.substitutions
+
+        console.log("expression", expression)
+        console.log("substitutions", this.substitutions)
+
+        for (let substitution of substitutions) {
             let substitutionPlaces = this.getSubstitutionPlaces(expression, substitution);
 
             if (0 < substitutionPlaces.length) {
 
-                // ХОТИМ привести substitution.origin, substitution.target к нужному виду
-
                 let rawFormula = this.applySubstitution(expression, substitution, substitutionPlaces);
 
-                // console.log("rawformula", rawFormula);
-                // console.log("origin", substitution.origin);
-                // console.log("target", substitution.target);
+                console.log("rawformula", rawFormula)
 
                 console.log(substitution.origin);
                 console.log(substitution.target);
@@ -128,9 +136,6 @@ class LevelFormulaGenerator {
                     "origin":       this.structureStringToString(substitution.origin),
                     "target":       this.structureStringToString(substitution.target)
                 };
-
-                // console.log("origin, target", this.formula.origin, this.formula.target);
-                // label == target
 
                 break;
             }

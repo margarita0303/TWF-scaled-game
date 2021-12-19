@@ -1,0 +1,40 @@
+{
+  "substitutions": [
+    {
+      "origin": "(sin^2(a)+cos^2(a))",
+      "target": "1",
+      "scoreForHit": -30,
+      "scoreForSkip": 30
+    },
+    {
+      "origin": "sin(30)*sin(30)",
+      "target": "1-cos(30)",
+      "scoreForHit": 30,
+      "scoreForSkip": -30
+    },
+    {
+      "origin": "1-cos(30)",
+      "target": "sin(30)",
+      "scoreForHit": 30,
+      "scoreForSkip": -30
+    },
+    {
+      "origin": "1-cos(30)",
+      "target": "sin(30)",
+      "scoreForHit": 30,
+      "scoreForSkip": -30
+    },
+    {
+      "origin": "1-sin(30)",
+      "target": "cos(45)cos(45)",
+      "scoreForHit": -30,
+      "scoreForSkip": 30
+    },
+    {
+      "origin": "cos(45)cos(45)",
+      "target": "1-sin(45)sin(45)",
+      "scoreForHit": -30,
+      "scoreForSkip": 30
+    }
+  ]
+}

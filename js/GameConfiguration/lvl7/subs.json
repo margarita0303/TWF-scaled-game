@@ -1,0 +1,40 @@
+{
+  "substitutions": [
+    {
+      "origin": "sin(30+60)",
+      "target": "sin(30)cos(60)+cos(30)sin(60)",
+      "scoreForHit": -30,
+      "scoreForSkip": 30
+    },
+    {
+      "origin": "cos(30)sin(60)",
+      "target": "cos(60)",
+      "scoreForHit": 30,
+      "scoreForSkip": -30
+    },
+    {
+      "origin": "sin(30)cos(60)",
+      "target": "sin(60)",
+      "scoreForHit": 30,
+      "scoreForSkip": -30
+    },
+    {
+      "origin": "cos(60)",
+      "target": "0",
+      "scoreForHit": 30,
+      "scoreForSkip": -30
+    },
+    {
+      "origin": "sin(60)",
+      "target": "1cos(30)-0sin(30)",
+      "scoreForHit": -30,
+      "scoreForSkip": 30
+    },
+    {
+      "origin": "cos(90)sin(30)",
+      "target": "0",
+      "scoreForHit": -30,
+      "scoreForSkip": 30
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "substitutions": [
+    {
+      "origin": "sin(45)cos(15)",
+      "target": "(sin(60)+sin(30))",
+      "scoreForHit": -30,
+      "scoreForSkip": 30
+    },
+    {
+      "origin": "sin(60)",
+      "target": "cos(60)",
+      "scoreForHit": 30,
+      "scoreForSkip": -30
+    },
+    {
+      "origin": "cos(60)",
+      "target": "(sin(30)+sin(150))/2",
+      "scoreForHit": -30,
+      "scoreForSkip": 30
+    },
+    {
+      "origin": "(sin(30)+sin(150))/2",
+      "target": "tg(240)",
+      "scoreForHit": 30,
+      "scoreForSkip": -30
+    },
+    {
+      "origin": "tg(240)",
+      "target": "sqrt(3)",
+      "scoreForHit": -30,
+      "scoreForSkip": 30
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "substitutions": [
+    {
+      "origin": "cos^2(2x)-sin^2(2x)",
+      "target": "cos(4x)",
+      "scoreForHit": -30,
+      "scoreForSkip": 30
+    },
+    {
+      "origin": "cos(4x)",
+      "target": "2cos(x)-1",
+      "scoreForHit": 30,
+      "scoreForSkip": -30
+    },
+    {
+      "origin": "1-sin(x)sin(x)",
+      "target": "cos(2x)",
+      "scoreForHit": -30,
+      "scoreForSkip": 30
+    },
+    {
+      "origin": "cos(2x)",
+      "target": "cos(x)-1",
+      "scoreForHit": 30,
+      "scoreForSkip": -30
+    }
+  ]
+}
