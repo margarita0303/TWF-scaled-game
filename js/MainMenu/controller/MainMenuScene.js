@@ -75,6 +75,9 @@ class MainMenuScene extends Phaser.Scene {
                 howToPlayButton.on('pointerout', () => {
                     howToPlayButton.setFontFamily('RibeyeMarrow');
                 });
+                howToPlayButton.on('pointerup', () => {
+                    scene.start(GC.SCENES.HOW_TO_PLAY);
+                });
 
                 let settingsButtonPosition = sizer.position('Settings');
                 let settingsButton = add.text(settingsButtonPosition.x, settingsButtonPosition.y,
