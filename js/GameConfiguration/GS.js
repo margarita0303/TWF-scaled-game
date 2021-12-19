@@ -7,7 +7,8 @@ const GC = {
         GAME: 'GAME_SCENE',
         GAME_PAUSE: 'GAME_PAUSE_SCENE',
         GAME_COMPETE: 'GAME_COMPLETE_SCENE',
-        HOW_TO_PLAY : 'HOW_TO_PLAY_SCENE'
+        HOW_TO_PLAY : 'HOW_TO_PLAY_SCENE',
+        SETTINGS : 'SETTINGS_SCENE'
     },
     RESOLUTIONS: {
         MEDIUM: {

@@ -1,0 +1,16 @@
+{
+    "speed" : [
+    {
+        "difficulty": "easy",
+        "speed" : 0.5
+    },
+    {
+        "difficulty": "medium",
+        "speed" : 1
+    },
+    {
+        "difficulty": "hard",
+        "speed" : 0.5
+    }
+    ]
+}

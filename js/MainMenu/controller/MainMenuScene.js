@@ -91,6 +91,9 @@ class MainMenuScene extends Phaser.Scene {
                 settingsButton.on('pointerout', () => {
                     settingsButton.setFontFamily('RibeyeMarrow');
                 });
+                settingsButton.on('pointerup', () => {
+                    scene.start(GC.SCENES.SETTINGS);
+                });
             }
         })
     };

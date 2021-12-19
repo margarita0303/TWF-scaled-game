@@ -11,7 +11,8 @@ const config = {
         GameScene,
         GamePauseScene,
         GameCompleteScene,
-        HowToPlayScene
+        HowToPlayScene,
+        SettingsScene
     ],
     pixelArt: true,
     physics: {
