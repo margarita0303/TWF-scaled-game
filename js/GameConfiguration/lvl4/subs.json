@@ -1,0 +1,34 @@
+{
+  "substitutions": [
+    {
+      "origin": "sin(90-a)",
+      "target": "cos(x)",
+      "scoreForHit": -30,
+      "scoreForSkip": 30
+    },
+    {
+      "origin": "sin(90+x)",
+      "target": "sin(x)",
+      "scoreForHit": 30,
+      "scoreForSkip": -30
+    },
+    {
+      "origin": "sin(x)",
+      "target": "-cos(270+x)",
+      "scoreForHit": 30,
+      "scoreForSkip": -30
+    },
+    {
+      "origin": "cos(270+x)",
+      "target": "cos(90+x)",
+      "scoreForHit": -30,
+      "scoreForSkip": 30
+    },
+    {
+      "origin": "cos(90+x)",
+      "target": "-sin(x)",
+      "scoreForHit": -30,
+      "scoreForSkip": 30
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
   "expressions": [
-    "A|B"
+    "sin(30)+sin(45)-cos(90)+cos(120)"
   ]
 }

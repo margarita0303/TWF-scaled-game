@@ -2,37 +2,66 @@
   "levels": [
     {
       "index": 1,
-      "description": "Training",
-      "numberOfFormulas": 2,
+      "description": "The values of sin, cos",
+      "numberOfFormulas": 7,
       "initialExpressions": "/lvl1/init.json",
       "substitutions": "/lvl1/subs.json"
     },
     {
       "index": 2,
-      "description": "Implication",
-      "numberOfFormulas": 10,
+      "description": "The values of tg, ctg",
+      "numberOfFormulas": 5,
       "initialExpressions": "/lvl2/init.json",
       "substitutions": "/lvl2/subs.json"
     },
     {
       "index": 3,
-      "description": "In development"
+      "description": "Trigonometric identity",
+      "numberOfFormulas": 5,
+      "initialExpressions": "/lvl3/init.json",
+      "substitutions": "/lvl3/subs.json"
     },
     {
       "index": 4,
-      "description": "In development"
+      "description": "Reduction formulas",
+      "numberOfFormulas": 5,
+      "initialExpressions": "/lvl4/init.json",
+      "substitutions": "/lvl4/subs.json"
     },
     {
       "index": 5,
-      "description": "In development"
+      "description": "Double angle formulas",
+      "numberOfFormulas": 4,
+      "initialExpressions": "/lvl5/init.json",
+      "substitutions": "/lvl5/subs.json"
     },
     {
       "index": 6,
-      "description": "In development"
+      "description": "Double angle formulas 2",
+      "numberOfFormulas": 4,
+      "initialExpressions": "/lvl6/init.json",
+      "substitutions": "/lvl6/subs.json"
     },
     {
       "index": 7,
-      "description": "In development"
+      "description": "Addition formulas",
+      "numberOfFormulas": 5,
+      "initialExpressions": "/lvl7/init.json",
+      "substitutions": "/lvl7/subs.json"
+    },
+    {
+      "index": 8,
+      "description": "Multiplication formulas",
+      "numberOfFormulas": 5,
+      "initialExpressions": "/lvl8/init.json",
+      "substitutions": "/lvl8/subs.json"
+    },
+    {
+      "index": 9,
+      "description": "Multiplication formulas 2",
+      "numberOfFormulas": 5,
+      "initialExpressions": "/lvl9/init.json",
+      "substitutions": "/lvl9/subs.json"
     }
   ]
 }

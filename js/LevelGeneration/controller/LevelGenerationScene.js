@@ -18,6 +18,8 @@ class LevelGenerationScene extends Phaser.Scene {
     preload() {
         this.load.json(this.initialExpressionsPath, this.initialExpressionsPath);
         this.load.json(this.substitutionsPath, this.substitutionsPath);
+        this.messagePath = "/js/GameConfiguration/lvl" + (this.levelNumber + 1).toString() + "/messageInTheEnd.json";
+        this.load.json(this.messagePath, this.messagePath);
     }
 
     deepClone(aObject) {
@@ -38,6 +40,10 @@ class LevelGenerationScene extends Phaser.Scene {
     create() {
         this.initialExpressions = this.deepClone(this.cache.json.get(this.initialExpressionsPath));
         this.substitutions = this.deepClone(this.cache.json.get(this.substitutionsPath));
+
+        console.log(this.substitutionsPath)
+        console.log("create", this.substitutions)
+        console.log(this.initialExpressions)
 
         this.sizer = new LevelGenerationSizer(this);
         this.generator = new LevelFormulaGenerator(this, {

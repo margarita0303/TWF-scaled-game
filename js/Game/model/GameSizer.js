@@ -148,6 +148,14 @@ class GameSizer {
         return 44;
     }
 
+    congratsLabel_FontSize() {
+        return 60;
+    }
+
+    scoreLabel_Color() {
+        return '#000';
+    }
+
     scoreLabel_Color() {
         return '#000';
     }
@@ -265,5 +273,49 @@ class GameSizer {
     congratCenterY() {
         const centerY = this.scene.cameras.main.worldView.y + this.scene.cameras.main.height / 2
         return centerY;
+    }
+
+    messageCongratCenterX() {
+        return this.cardBackground_LeftX() + this.cardBackground_Width() / 2 + 10
+    }
+
+    messageCongratCenterY() {
+        const centerY = this.scene.cameras.main.worldView.y + this.scene.cameras.main.height / 2
+        return centerY - 230;
+    }
+
+    levelPassedCenterX() {
+        return this.cardBackground_LeftX() + this.cardBackground_Width() / 2 + 10
+    }
+
+    levelPassedCenterY() {
+        const centerY = this.scene.cameras.main.worldView.y + this.scene.cameras.main.height / 2
+        return centerY - 150;
+    }
+
+    messageCenterX() {
+        return this.cardBackground_LeftX() + this.cardBackground_Width() / 2 + 10
+    }
+
+    messageCenterY() {
+        const centerY = this.scene.cameras.main.worldView.y + this.scene.cameras.main.height / 2
+        return centerY + 50;
+    }
+
+    messageFontSize() {
+        return 38;
+    }
+
+    PSFontSize() {
+        return 30;
+    }
+
+    PSCenterX() {
+        return this.cardBackground_LeftX() + this.cardBackground_Width() / 2 + 10 + 100
+    }
+
+    PSCenterY() {
+        const centerY = this.scene.cameras.main.worldView.y + this.scene.cameras.main.height / 2
+        return centerY + 250;
     }
 }
